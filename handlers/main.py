@@ -1,15 +1,10 @@
 import logging
 from aiogram import Bot, Dispatcher, types
-from aiogram import executor
-from aiogram.types import ParseMode, poll, PollAnswer
-from buttons import *
-from db import Database
+from button.buttons import *
+from database.db import Database
 import asyncio
 import sqlite3
-from aiogram.dispatcher.filters.state import StatesGroup, State, RedisStorage
-from aiogram.dispatcher import FSMContext
-
-
+from aiogram.dispatcher.filters.state import StatesGroup, State
 
 logging.basicConfig(level=logging.INFO)
 
@@ -57,7 +52,7 @@ async def process_next_button(query: types.CallbackQuery):
 async def get_question_from_db(question_id=None):
     try:
         # Подключаемся к базе данных
-        connection = sqlite3.connect("bot_database.db")
+        connection = sqlite3.connect("../bot_database.db")
         cursor = connection.cursor()
 
         # Выполняем SQL-запрос для получения вопроса
@@ -125,7 +120,6 @@ async def question(message: types.Message):
 @dp.poll_answer_handler()
 async def handle_poll_answer(quiz_answer: types.PollAnswer):
     question_row = await get_question_from_db()
-    print(question_row)
     row_id, question_text, option1, option2, option3, option4, correct_option = question_row
 
     # correct_option=...
