@@ -8,7 +8,7 @@ from aiogram.dispatcher.filters.state import StatesGroup, State
 
 logging.basicConfig(level=logging.INFO)
 
-API_TOKEN = '6706083284:AAGa85ZQXtVk37Cls6K_WwWylsrzpcnaeTM'
+API_TOKEN = ''
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher(bot)
 
